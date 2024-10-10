@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo Simples</title>
+    <style>
+        #game {
+            width: 400px;
+            height: 400px;
+            border: 1px solid black;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="left">Esquerda</button>
+    <button id="right">Direita</button>
+    <button id="up">Cima</button>
+    <button id="down">Baixo</button>
+    <button id="start">Iniciar Jogo</button>
+    <button id="pause">Pausar Jogo</button>
+    <div id="game"></div>
+
+    <script>
+        var game = document.getElementById("game");
+        var box = document.createElement("div");
+        box.classList.add("box");
+        game.appendChild(box);
+
+        var x = 0;
+        var y = 0;
+
+        var interval;
+
+        document.getElementById("left").addEventListener("click", function() {
+            x -= 5;
+            if (x < 0) {
+                x = 0;
+            }
+            box.style.left = x + "px";
+        });
+
+        document.getElementById("right").addEventListener("click", function() {
+            x += 5;
+            if (x > 350) {
+                x = 350;
+            }
+            box.style.left = x + "px";
+        });
+
+        document.getElementById("up").addEventListener("click", function() {
+            y -= 5;
+            if (y < 0) {
+                y = 0;
+            }
+            box.style.top = y + "px";
+        });
+
+        document.getElementById("down").addEventListener("click", function() {
+            y += 5;
+            if (y > 350) {
+                y = 350;
+            }
+            box.style.top = y + "px";
+        });
+
+        document.getElementById("start").addEventListener("click", function() {
+            if (interval) {
+                clearInterval(interval);
+            }
+
+            interval = setInterval(function() {
+                x += 5;
+                y += 5;
+
+                if (x > 350) {
+                    x = 0;
+                }
+                if (y > 350) {
+                    y = 0;
+                }
+
+                box.style.left = x + "px";
+                box.style.top = y + "px";
+            }, 100);
+        });
+
+        document.getElementById("pause").addEventListener("click", function() {
+            if (interval) {
+                clearInterval(interval);
+                interval = null;
+            }
+        });
+    </script>
+</body>
+</html>
